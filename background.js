@@ -6,10 +6,27 @@ const DEFAULT_SETTINGS = {
         enabled: false,
         start: "09:00",
         end: "17:00"
-    }
+    },
+    autoReenableMinutes: 5 // Default 5 minutes
 };
 
 let settings = { ...DEFAULT_SETTINGS };
+let reenableAlarmName = 'autoReenable';
+
+// Force enable protection on browser startup
+chrome.runtime.onStartup.addListener(() => {
+    console.log("TimeHole: Browser started, ensuring protection is enabled");
+    chrome.storage.sync.set({ masterToggle: true });
+    // Clear any pending re-enable timestamp since we just enabled
+    chrome.storage.local.remove('reenableTime');
+});
+
+// Also force enable on extension install/update
+chrome.runtime.onInstalled.addListener(() => {
+    console.log("TimeHole: Extension installed/updated, ensuring protection is enabled");
+    chrome.storage.sync.set({ masterToggle: true });
+    chrome.storage.local.remove('reenableTime');
+});
 
 // Load settings on startup
 chrome.storage.sync.get(DEFAULT_SETTINGS, (items) => {
@@ -20,10 +37,52 @@ chrome.storage.sync.get(DEFAULT_SETTINGS, (items) => {
 // Update settings when changed
 chrome.storage.onChanged.addListener((changes, namespace) => {
     if (namespace === 'sync') {
-        for (let [key, { newValue }] of Object.entries(changes)) {
+        for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
             settings[key] = newValue;
+
+            // If masterToggle changed from true to false, start the re-enable timer
+            if (key === 'masterToggle') {
+                if (oldValue === true && newValue === false) {
+                    startReenableTimer();
+                } else if (newValue === true) {
+                    // Protection re-enabled, clear timer
+                    cancelReenableTimer();
+                }
+            }
         }
         console.log("TimeHole: Updated settings", settings);
+    }
+});
+
+// Start the auto re-enable timer using chrome.alarms
+function startReenableTimer() {
+    const minutes = settings.autoReenableMinutes || 5;
+    const reenableTime = Date.now() + minutes * 60 * 1000;
+
+    // Store the re-enable timestamp for popup countdown display
+    chrome.storage.local.set({ reenableTime: reenableTime });
+
+    // Create an alarm that will fire after the specified minutes
+    chrome.alarms.create(reenableAlarmName, {
+        delayInMinutes: minutes
+    });
+
+    console.log(`TimeHole: Auto re-enable timer started for ${minutes} minutes`);
+}
+
+// Cancel the re-enable timer
+function cancelReenableTimer() {
+    chrome.alarms.clear(reenableAlarmName);
+    chrome.storage.local.remove('reenableTime');
+    console.log("TimeHole: Auto re-enable timer cancelled");
+}
+
+// Handle alarm firing
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === reenableAlarmName) {
+        console.log("TimeHole: Auto re-enable timer fired, enabling protection");
+        chrome.storage.sync.set({ masterToggle: true });
+        chrome.storage.local.remove('reenableTime');
     }
 });
 

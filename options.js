@@ -7,7 +7,8 @@ const DEFAULT_SETTINGS = {
         enabled: false,
         start: "09:00",
         end: "17:00"
-    }
+    },
+    autoReenableMinutes: 5
 };
 
 // DOM Elements
@@ -17,8 +18,15 @@ const whitelistArea = document.getElementById('whitelist');
 const startTime = document.getElementById('startTime');
 const endTime = document.getElementById('endTime');
 const enableSchedule = document.getElementById('enableSchedule');
+const autoReenableSlider = document.getElementById('autoReenableMinutes');
+const reenableValueDisplay = document.getElementById('reenableValue');
 const saveBtn = document.getElementById('saveBtn');
 const statusDisplay = document.getElementById('status');
+
+// Update re-enable value display when slider changes
+autoReenableSlider.addEventListener('input', () => {
+    reenableValueDisplay.textContent = `${autoReenableSlider.value} min`;
+});
 
 // Load settings
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,10 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
         masterToggle.checked = items.masterToggle;
         blacklistArea.value = items.blacklist.join('\n');
         whitelistArea.value = items.whitelist.join('\n');
-        
+
         startTime.value = items.schedule.start;
         endTime.value = items.schedule.end;
         enableSchedule.checked = items.schedule.enabled;
+
+        // Load auto re-enable setting
+        autoReenableSlider.value = items.autoReenableMinutes || 5;
+        reenableValueDisplay.textContent = `${autoReenableSlider.value} min`;
     });
 });
 
@@ -54,7 +66,8 @@ saveBtn.addEventListener('click', () => {
             enabled: enableSchedule.checked,
             start: startTime.value,
             end: endTime.value
-        }
+        },
+        autoReenableMinutes: parseInt(autoReenableSlider.value, 10)
     };
 
     chrome.storage.sync.set(settings, () => {

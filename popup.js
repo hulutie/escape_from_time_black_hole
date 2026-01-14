@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.getElementById('popupToggle');
     const statusText = document.getElementById('statusText');
     const openOptionsBtn = document.getElementById('openOptions');
+    const countdownContainer = document.getElementById('countdownContainer');
+    const countdownTimer = document.getElementById('countdownTimer');
 
     // Verification Modal Elements
     const modal = document.getElementById('verificationModal');
@@ -12,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmBtn = document.getElementById('confirmVerify');
 
     let currentChallenge = '';
+    let countdownInterval = null;
 
     // Generate random challenge code
     function generateChallenge() {
@@ -42,10 +45,87 @@ document.addEventListener('DOMContentLoaded', () => {
         verifyError.textContent = '';
     }
 
+    // Format remaining time as MM:SS
+    function formatTime(ms) {
+        if (ms <= 0) return '00:00';
+        const totalSeconds = Math.ceil(ms / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    // Update countdown display
+    function updateCountdown() {
+        chrome.storage.local.get(['reenableTime'], (result) => {
+            const reenableTime = result.reenableTime;
+
+            if (reenableTime) {
+                const remaining = reenableTime - Date.now();
+
+                if (remaining > 0) {
+                    countdownContainer.style.display = 'block';
+                    countdownTimer.textContent = formatTime(remaining);
+                } else {
+                    // Timer expired, hide countdown
+                    countdownContainer.style.display = 'none';
+                    countdownTimer.textContent = '--:--';
+                }
+            } else {
+                countdownContainer.style.display = 'none';
+                countdownTimer.textContent = '--:--';
+            }
+        });
+    }
+
+    // Start countdown interval
+    function startCountdownInterval() {
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+        }
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
+    }
+
+    // Stop countdown interval
+    function stopCountdownInterval() {
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+        }
+        countdownContainer.style.display = 'none';
+    }
+
     // Sync State
     chrome.storage.sync.get(['masterToggle'], (result) => {
         const isActive = result.masterToggle !== false; // Default true
         updateUI(isActive);
+
+        // Start countdown if protection is disabled
+        if (!isActive) {
+            startCountdownInterval();
+        }
+    });
+
+    // Listen for storage changes to update countdown in real-time
+    chrome.storage.onChanged.addListener((changes, namespace) => {
+        if (namespace === 'sync' && changes.masterToggle) {
+            const isActive = changes.masterToggle.newValue;
+            updateUI(isActive);
+
+            if (isActive) {
+                stopCountdownInterval();
+            } else {
+                startCountdownInterval();
+            }
+        }
+
+        if (namespace === 'local' && changes.reenableTime) {
+            if (changes.reenableTime.newValue) {
+                startCountdownInterval();
+            } else {
+                stopCountdownInterval();
+            }
+        }
     });
 
     // Handle Toggle
@@ -61,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Enabling protection - no verification needed
             chrome.storage.sync.set({ masterToggle: newState }, () => {
                 updateUI(newState);
+                stopCountdownInterval();
             });
         }
     });
@@ -96,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chrome.storage.sync.set({ masterToggle: false }, () => {
                 updateUI(false);
                 hideVerificationModal();
+                startCountdownInterval();
             });
         } else {
             // Failed - show error and generate new code
