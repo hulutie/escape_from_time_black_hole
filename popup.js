@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } else {
             // Failed - show error and generate new code
-            verifyError.textContent = 'Incorrect code. Try again with the new code.';
+            verifyError.textContent = window.i18n ? window.i18n('incorrectCode') : 'Incorrect code. Try again with the new code.';
             verifyInput.value = '';
             currentChallenge = generateChallenge();
             challengeCodeEl.textContent = currentChallenge;
@@ -201,7 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateUI(isActive) {
         toggle.checked = isActive;
-        statusText.textContent = isActive ? "Active" : "Inactive";
+        const activeText = window.i18n ? window.i18n('statusActive') : 'Active';
+        const inactiveText = window.i18n ? window.i18n('statusInactive') : 'Inactive';
+        statusText.textContent = isActive ? activeText : inactiveText;
         statusText.style.color = isActive ? "var(--success-color)" : "var(--text-secondary)";
     }
 });

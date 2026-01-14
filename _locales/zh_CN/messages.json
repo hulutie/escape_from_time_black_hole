@@ -1,0 +1,158 @@
+{
+    "extName": {
+        "message": "TimeHole - 专注与防沉迷",
+        "description": "扩展名称"
+    },
+    "extDescription": {
+        "message": "拦截黑名单网站并重定向到有益网站，帮助你戒掉坏习惯。",
+        "description": "扩展描述"
+    },
+    "appTitle": {
+        "message": "TimeHole",
+        "description": "应用标题"
+    },
+    "focusGuard": {
+        "message": "专注守护",
+        "description": "副标题"
+    },
+    "currentStatus": {
+        "message": "当前状态",
+        "description": "当前状态标签"
+    },
+    "statusActive": {
+        "message": "已启用",
+        "description": "已激活状态"
+    },
+    "statusInactive": {
+        "message": "已停用",
+        "description": "未激活状态"
+    },
+    "statusPaused": {
+        "message": "已暂停",
+        "description": "暂停状态"
+    },
+    "statusOutside": {
+        "message": "不在时间段内",
+        "description": "不在计划时间内状态"
+    },
+    "autoReenableIn": {
+        "message": "自动恢复倒计时：",
+        "description": "自动恢复倒计时标签"
+    },
+    "enableProtection": {
+        "message": "启用保护",
+        "description": "启用保护开关标签"
+    },
+    "configuration": {
+        "message": "设置",
+        "description": "设置按钮"
+    },
+    "confirmDisable": {
+        "message": "⚠️ 确认停用",
+        "description": "停用确认标题"
+    },
+    "disableInstruction": {
+        "message": "如需停用保护，请输入以下验证码：",
+        "description": "停用说明"
+    },
+    "typeCodePlaceholder": {
+        "message": "请输入上方验证码...",
+        "description": "验证码输入框占位符"
+    },
+    "cancel": {
+        "message": "取消",
+        "description": "取消按钮"
+    },
+    "confirm": {
+        "message": "确认",
+        "description": "确认按钮"
+    },
+    "settingsTitle": {
+        "message": "TimeHole 设置",
+        "description": "设置页面标题"
+    },
+    "settingsSubtitle": {
+        "message": "配置你的专注环境。",
+        "description": "设置页面副标题"
+    },
+    "extensionStatus": {
+        "message": "扩展状态",
+        "description": "扩展状态标签"
+    },
+    "blacklist": {
+        "message": "黑名单",
+        "description": "黑名单部分标题"
+    },
+    "blacklistDesc": {
+        "message": "要拦截的网站（支持通配符，如 `*.youtube.com*`）。每行一个。",
+        "description": "黑名单描述"
+    },
+    "blacklistPlaceholder": {
+        "message": "*.youtube.com\n*.twitter.com",
+        "description": "黑名单占位符"
+    },
+    "whitelist": {
+        "message": "白名单",
+        "description": "白名单部分标题"
+    },
+    "whitelistDesc": {
+        "message": "重定向的目标网站（随机选择）。每行一个。",
+        "description": "白名单描述"
+    },
+    "whitelistPlaceholder": {
+        "message": "wikipedia.org\nstackoverflow.com\ngithub.com",
+        "description": "白名单占位符"
+    },
+    "schedule": {
+        "message": "时间计划",
+        "description": "时间计划部分标题"
+    },
+    "scheduleDesc": {
+        "message": "仅在以下时间段内拦截。",
+        "description": "时间计划描述"
+    },
+    "startTime": {
+        "message": "开始时间",
+        "description": "开始时间标签"
+    },
+    "endTime": {
+        "message": "结束时间",
+        "description": "结束时间标签"
+    },
+    "enableSchedule": {
+        "message": "启用时间计划（在开始和结束时间之间生效）",
+        "description": "启用时间计划复选框标签"
+    },
+    "autoReenable": {
+        "message": "自动恢复",
+        "description": "自动恢复部分标题"
+    },
+    "autoReenableDesc": {
+        "message": "当保护被停用时，在此时间后自动重新启用。",
+        "description": "自动恢复描述"
+    },
+    "reenableAfter": {
+        "message": "恢复时间：",
+        "description": "恢复时间标签"
+    },
+    "minUnit": {
+        "message": "分钟",
+        "description": "分钟单位缩写"
+    },
+    "saveSettings": {
+        "message": "保存设置",
+        "description": "保存按钮"
+    },
+    "settingsSaved": {
+        "message": "✓ 设置已保存！",
+        "description": "设置已保存消息"
+    },
+    "whitelistEmpty": {
+        "message": "白名单不能为空！",
+        "description": "白名单为空错误消息"
+    },
+    "incorrectCode": {
+        "message": "验证码错误，请重试。",
+        "description": "验证码错误消息"
+    }
+}

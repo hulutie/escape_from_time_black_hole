@@ -1,0 +1,158 @@
+{
+    "extName": {
+        "message": "TimeHole - Focus & Anti-Addiction",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Intercepts blacklisted sites and redirects to productive ones to break bad habits.",
+        "description": "Extension description"
+    },
+    "appTitle": {
+        "message": "TimeHole",
+        "description": "Application title"
+    },
+    "focusGuard": {
+        "message": "Focus Guard",
+        "description": "Subtitle"
+    },
+    "currentStatus": {
+        "message": "Current Status",
+        "description": "Current status label"
+    },
+    "statusActive": {
+        "message": "Active",
+        "description": "Active status"
+    },
+    "statusInactive": {
+        "message": "Inactive",
+        "description": "Inactive status"
+    },
+    "statusPaused": {
+        "message": "Paused",
+        "description": "Paused status"
+    },
+    "statusOutside": {
+        "message": "Outside Schedule",
+        "description": "Outside schedule status"
+    },
+    "autoReenableIn": {
+        "message": "Auto re-enable in:",
+        "description": "Auto re-enable countdown label"
+    },
+    "enableProtection": {
+        "message": "Enable Protection",
+        "description": "Enable protection toggle label"
+    },
+    "configuration": {
+        "message": "Configuration",
+        "description": "Configuration button"
+    },
+    "confirmDisable": {
+        "message": "⚠️ Confirm Disable",
+        "description": "Disable confirmation title"
+    },
+    "disableInstruction": {
+        "message": "To disable protection, please type the following code:",
+        "description": "Disable instruction"
+    },
+    "typeCodePlaceholder": {
+        "message": "Type the code above...",
+        "description": "Code input placeholder"
+    },
+    "cancel": {
+        "message": "Cancel",
+        "description": "Cancel button"
+    },
+    "confirm": {
+        "message": "Confirm",
+        "description": "Confirm button"
+    },
+    "settingsTitle": {
+        "message": "TimeHole Settings",
+        "description": "Settings page title"
+    },
+    "settingsSubtitle": {
+        "message": "Configure your focus environment.",
+        "description": "Settings page subtitle"
+    },
+    "extensionStatus": {
+        "message": "Extension Status",
+        "description": "Extension status label"
+    },
+    "blacklist": {
+        "message": "Blacklist",
+        "description": "Blacklist section title"
+    },
+    "blacklistDesc": {
+        "message": "Websites to intercept (supports wildcards like `*.youtube.com*`). One per line.",
+        "description": "Blacklist description"
+    },
+    "blacklistPlaceholder": {
+        "message": "*.youtube.com\n*.twitter.com",
+        "description": "Blacklist placeholder"
+    },
+    "whitelist": {
+        "message": "Whitelist",
+        "description": "Whitelist section title"
+    },
+    "whitelistDesc": {
+        "message": "Safe websites to redirect to (randomly chosen). One per line.",
+        "description": "Whitelist description"
+    },
+    "whitelistPlaceholder": {
+        "message": "wikipedia.org\nstackoverflow.com\ngithub.com",
+        "description": "Whitelist placeholder"
+    },
+    "schedule": {
+        "message": "Schedule",
+        "description": "Schedule section title"
+    },
+    "scheduleDesc": {
+        "message": "Only intercept during these times.",
+        "description": "Schedule description"
+    },
+    "startTime": {
+        "message": "Start Time",
+        "description": "Start time label"
+    },
+    "endTime": {
+        "message": "End Time",
+        "description": "End time label"
+    },
+    "enableSchedule": {
+        "message": "Enable Schedule (Active between Start and End)",
+        "description": "Enable schedule checkbox label"
+    },
+    "autoReenable": {
+        "message": "Auto Re-enable",
+        "description": "Auto re-enable section title"
+    },
+    "autoReenableDesc": {
+        "message": "When protection is disabled, automatically re-enable after this duration.",
+        "description": "Auto re-enable description"
+    },
+    "reenableAfter": {
+        "message": "Re-enable after:",
+        "description": "Re-enable after label"
+    },
+    "minUnit": {
+        "message": "min",
+        "description": "Minute unit abbreviation"
+    },
+    "saveSettings": {
+        "message": "Save Settings",
+        "description": "Save button"
+    },
+    "settingsSaved": {
+        "message": "✓ Settings saved!",
+        "description": "Settings saved message"
+    },
+    "whitelistEmpty": {
+        "message": "Whitelist cannot be empty!",
+        "description": "Whitelist empty error message"
+    },
+    "incorrectCode": {
+        "message": "Incorrect code. Please try again.",
+        "description": "Incorrect verification code message"
+    }
+}

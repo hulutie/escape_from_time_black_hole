@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TimeHole Settings</title>
+    <title data-i18n="settingsTitle">TimeHole Settings</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .time-row {
@@ -19,11 +19,11 @@
 <body>
     <div class="container">
         <div class="glass-panel" style="padding: 2rem;">
-            <h1>TimeHole Settings</h1>
-            <p>Configure your focus environment.</p>
+            <h1 data-i18n="settingsTitle">TimeHole Settings</h1>
+            <p data-i18n="settingsSubtitle">Configure your focus environment.</p>
 
             <div class="flex" style="justify-content: space-between; margin: 1.5rem 0;">
-                <span class="text-primary font-bold">Extension Status</span>
+                <span class="text-primary font-bold" data-i18n="extensionStatus">Extension Status</span>
                 <label class="switch">
                     <input type="checkbox" id="masterToggle">
                     <span class="slider"></span>
@@ -33,61 +33,66 @@
             <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
 
             <!-- Blacklist Section -->
-            <h2>Blacklist</h2>
-            <p class="mb-2">Websites to intercept (supports wildcards like `*.youtube.com*`). One per line.</p>
-            <textarea id="blacklist" rows="6" placeholder="*.youtube.com&#10;*.twitter.com"></textarea>
+            <h2 data-i18n="blacklist">Blacklist</h2>
+            <p class="mb-2" data-i18n="blacklistDesc">Websites to intercept (supports wildcards like `*.youtube.com*`).
+                One per line.</p>
+            <textarea id="blacklist" rows="6" data-i18n-placeholder="blacklistPlaceholder"
+                placeholder="*.youtube.com&#10;*.twitter.com"></textarea>
 
             <!-- Whitelist Section -->
-            <h2>Whitelist</h2>
-            <p class="mb-2">Safe websites to redirect to (randomly chosen). One per line.</p>
-            <textarea id="whitelist" rows="6"
+            <h2 data-i18n="whitelist">Whitelist</h2>
+            <p class="mb-2" data-i18n="whitelistDesc">Safe websites to redirect to (randomly chosen). One per line.</p>
+            <textarea id="whitelist" rows="6" data-i18n-placeholder="whitelistPlaceholder"
                 placeholder="wikipedia.org&#10;stackoverflow.com&#10;github.com"></textarea>
 
             <!-- Schedule Section -->
-            <h2>Schedule</h2>
-            <p class="mb-2">Only intercept during these times.</p>
+            <h2 data-i18n="schedule">Schedule</h2>
+            <p class="mb-2" data-i18n="scheduleDesc">Only intercept during these times.</p>
 
             <div class="flex-col">
                 <div class="flex time-row">
-                    <label>Start Time</label>
+                    <label data-i18n="startTime">Start Time</label>
                     <input type="time" id="startTime">
                 </div>
                 <div class="flex time-row">
-                    <label>End Time</label>
+                    <label data-i18n="endTime">End Time</label>
                     <input type="time" id="endTime">
                 </div>
                 <div class="flex" style="align-items: center; margin-top: 0.5rem;">
                     <input type="checkbox" id="enableSchedule" style="width: auto; margin-right: 0.5rem;">
-                    <label for="enableSchedule" style="margin-bottom: 0;">Enable Schedule (Active between Start and
+                    <label for="enableSchedule" style="margin-bottom: 0;" data-i18n="enableSchedule">Enable Schedule
+                        (Active between Start and
                         End)</label>
                 </div>
             </div>
 
             <!-- Auto Re-enable Section -->
-            <h2>Auto Re-enable</h2>
-            <p class="mb-2">When protection is disabled, automatically re-enable after this duration.</p>
+            <h2 data-i18n="autoReenable">Auto Re-enable</h2>
+            <p class="mb-2" data-i18n="autoReenableDesc">When protection is disabled, automatically re-enable after this
+                duration.</p>
 
             <div class="flex-col">
                 <div class="flex" style="justify-content: space-between; align-items: center;">
-                    <label>Re-enable after:</label>
+                    <label data-i18n="reenableAfter">Re-enable after:</label>
                     <span id="reenableValue" style="font-weight: bold; color: var(--accent-color);">5 min</span>
                 </div>
                 <input type="range" id="autoReenableMinutes" min="1" max="15" value="5" style="width: 100%;">
                 <div class="range-labels"
                     style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary);">
-                    <span>1 min</span>
-                    <span>15 min</span>
+                    <span>1 <span data-i18n="minUnit">min</span></span>
+                    <span>15 <span data-i18n="minUnit">min</span></span>
                 </div>
             </div>
 
             <!-- Save -->
             <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
-                <button id="saveBtn">Save Settings</button>
+                <button id="saveBtn" data-i18n="saveSettings">Save Settings</button>
             </div>
             <p id="status"
                 style="text-align: right; min-height: 1.2em; color: var(--success-color); margin-top: 0.5rem;"></p>
         </div>
     </div>
+    <script src="i18n.js"></script>
     <script src="options.js"></script>
 </body>
 

@@ -4,51 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TimeHole</title>
+    <title data-i18n="appTitle">TimeHole</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="popup-body">
     <div style="text-align: center;">
-        <h1>TimeHole</h1>
-        <p style="margin-bottom: 1.5rem;">Focus Guard</p>
+        <h1 data-i18n="appTitle">TimeHole</h1>
+        <p style="margin-bottom: 1.5rem;" data-i18n="focusGuard">Focus Guard</p>
     </div>
 
     <div class="glass-panel" style="padding: 1rem; margin-bottom: 1rem; text-align: center;">
-        <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">Current Status</div>
-        <div id="statusText" style="font-size: 1.2rem; font-weight: bold; color: var(--success-color);">Active</div>
+        <div style="margin-bottom: 0.5rem; color: var(--text-secondary);" data-i18n="currentStatus">Current Status</div>
+        <div id="statusText" style="font-size: 1.2rem; font-weight: bold; color: var(--success-color);"
+            data-i18n="statusActive">Active</div>
         <!-- Countdown Display -->
         <div id="countdownContainer" class="countdown-container" style="display: none;">
-            <div class="countdown-label">Auto re-enable in:</div>
+            <div class="countdown-label" data-i18n="autoReenableIn">Auto re-enable in:</div>
             <div id="countdownTimer" class="countdown-timer">--:--</div>
         </div>
     </div>
 
     <div class="flex" style="justify-content: space-between; margin-bottom: 1.5rem; padding: 0 0.5rem;">
-        <span>Enable Protection</span>
+        <span data-i18n="enableProtection">Enable Protection</span>
         <label class="switch">
             <input type="checkbox" id="popupToggle">
             <span class="slider"></span>
         </label>
     </div>
 
-    <button id="openOptions" class="secondary" style="width: 100%;">Configuration</button>
+    <button id="openOptions" class="secondary" style="width: 100%;" data-i18n="configuration">Configuration</button>
 
     <!-- Verification Modal -->
     <div id="verificationModal" class="modal-overlay">
         <div class="glass-panel modal-content">
-            <h3 style="margin-top: 0; color: var(--danger-color);">⚠️ Confirm Disable</h3>
-            <p style="margin-bottom: 0.5rem;">To disable protection, please type the following code:</p>
+            <h3 style="margin-top: 0; color: var(--danger-color);" data-i18n="confirmDisable">⚠️ Confirm Disable</h3>
+            <p style="margin-bottom: 0.5rem;" data-i18n="disableInstruction">To disable protection, please type the
+                following code:</p>
             <div id="challengeCode" class="challenge-code"></div>
-            <input type="text" id="verifyInput" placeholder="Type the code above..." autocomplete="off">
+            <input type="text" id="verifyInput" data-i18n-placeholder="typeCodePlaceholder"
+                placeholder="Type the code above..." autocomplete="off">
             <p id="verifyError" class="verify-error"></p>
             <div class="modal-buttons">
-                <button id="cancelVerify" class="secondary">Cancel</button>
-                <button id="confirmVerify" class="danger-btn">Confirm</button>
+                <button id="cancelVerify" class="secondary" data-i18n="cancel">Cancel</button>
+                <button id="confirmVerify" class="danger-btn" data-i18n="confirm">Confirm</button>
             </div>
         </div>
     </div>
 
+    <script src="i18n.js"></script>
     <script src="popup.js"></script>
 </body>
 

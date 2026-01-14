@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "TimeHole - Focus & Anti-Addiction",
+  "name": "__MSG_extName__",
   "version": "1.0",
-  "description": "Intercepts blacklisted sites and redirects to productive ones to break bad habits.",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "permissions": [
     "storage",
     "tabs",

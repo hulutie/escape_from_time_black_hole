@@ -2,11 +2,11 @@
 const DEFAULT_SETTINGS = {
     masterToggle: true,
     blacklist: ["*youtube.com*", "*twitter.com*", "*reddit.com*"],
-    whitelist: ["https://wikipedia.org", "https://stackoverflow.com", "https://github.com"],
+    whitelist: ["https://wikipedia.org", "https://github.com"],
     schedule: {
         enabled: false,
         start: "09:00",
-        end: "17:00"
+        end: "18:00"
     },
     autoReenableMinutes: 5
 };
@@ -25,7 +25,8 @@ const statusDisplay = document.getElementById('status');
 
 // Update re-enable value display when slider changes
 autoReenableSlider.addEventListener('input', () => {
-    reenableValueDisplay.textContent = `${autoReenableSlider.value} min`;
+    const minUnit = window.i18n ? window.i18n('minUnit') : 'min';
+    reenableValueDisplay.textContent = `${autoReenableSlider.value} ${minUnit}`;
 });
 
 // Load settings
@@ -41,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Load auto re-enable setting
         autoReenableSlider.value = items.autoReenableMinutes || 5;
-        reenableValueDisplay.textContent = `${autoReenableSlider.value} min`;
+        const minUnit = window.i18n ? window.i18n('minUnit') : 'min';
+        reenableValueDisplay.textContent = `${autoReenableSlider.value} ${minUnit}`;
     });
 });
 
@@ -54,7 +56,7 @@ saveBtn.addEventListener('click', () => {
     // Validate simple settings
     if (whitelist.length === 0) {
         statusDisplay.style.color = 'var(--danger-color)';
-        statusDisplay.textContent = 'Whitelist cannot be empty!';
+        statusDisplay.textContent = window.i18n ? window.i18n('whitelistEmpty') : 'Whitelist cannot be empty!';
         return;
     }
 
@@ -72,7 +74,7 @@ saveBtn.addEventListener('click', () => {
 
     chrome.storage.sync.set(settings, () => {
         statusDisplay.style.color = 'var(--success-color)';
-        statusDisplay.textContent = 'Options saved successfully.';
+        statusDisplay.textContent = window.i18n ? window.i18n('settingsSaved') : 'Options saved successfully.';
         setTimeout(() => {
             statusDisplay.textContent = '';
         }, 3000);
