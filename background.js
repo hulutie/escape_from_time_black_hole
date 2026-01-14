@@ -29,9 +29,12 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 // Load settings on startup
-chrome.storage.sync.get(DEFAULT_SETTINGS, (items) => {
-    settings = items;
-    console.log("TimeHole: Loaded settings", settings);
+const settingsReady = new Promise((resolve) => {
+    chrome.storage.sync.get(DEFAULT_SETTINGS, (items) => {
+        settings = items;
+        console.log("TimeHole: Loaded settings", settings);
+        resolve();
+    });
 });
 
 // Update settings when changed
@@ -143,7 +146,10 @@ function getSafeUrl() {
 }
 
 // Core Interceptor
-function handleNavigation(details) {
+async function handleNavigation(details) {
+    // Ensure settings are loaded before processing
+    await settingsReady;
+
     // 1. Check Master Switch
     if (!settings.masterToggle) return;
 
