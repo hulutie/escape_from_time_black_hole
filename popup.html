@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeHole</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="popup-body">
+    <div style="text-align: center;">
+        <h1>TimeHole</h1>
+        <p style="margin-bottom: 1.5rem;">Focus Guard</p>
+    </div>
+
+    <div class="glass-panel" style="padding: 1rem; margin-bottom: 1rem; text-align: center;">
+        <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">Current Status</div>
+        <div id="statusText" style="font-size: 1.2rem; font-weight: bold; color: var(--success-color);">Active</div>
+    </div>
+
+    <div class="flex" style="justify-content: space-between; margin-bottom: 1.5rem; padding: 0 0.5rem;">
+        <span>Enable Protection</span>
+        <label class="switch">
+            <input type="checkbox" id="popupToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <button id="openOptions" class="secondary" style="width: 100%;">Configuration</button>
+    <script src="popup.js"></script>
+</body>
+
+</html>

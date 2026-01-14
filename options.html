@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeHole Settings</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .time-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-panel" style="padding: 2rem;">
+            <h1>TimeHole Settings</h1>
+            <p>Configure your focus environment.</p>
+
+            <div class="flex" style="justify-content: space-between; margin: 1.5rem 0;">
+                <span class="text-primary font-bold">Extension Status</span>
+                <label class="switch">
+                    <input type="checkbox" id="masterToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
+
+            <!-- Blacklist Section -->
+            <h2>Blacklist</h2>
+            <p class="mb-2">Websites to intercept (supports wildcards like `*.youtube.com*`). One per line.</p>
+            <textarea id="blacklist" rows="6" placeholder="*.youtube.com&#10;*.twitter.com"></textarea>
+
+            <!-- Whitelist Section -->
+            <h2>Whitelist</h2>
+            <p class="mb-2">Safe websites to redirect to (randomly chosen). One per line.</p>
+            <textarea id="whitelist" rows="6" placeholder="wikipedia.org&#10;stackoverflow.com&#10;github.com"></textarea>
+
+            <!-- Schedule Section -->
+            <h2>Schedule</h2>
+            <p class="mb-2">Only intercept during these times.</p>
+            
+            <div class="flex-col">
+                <div class="flex time-row">
+                    <label>Start Time</label>
+                    <input type="time" id="startTime">
+                </div>
+                <div class="flex time-row">
+                    <label>End Time</label>
+                    <input type="time" id="endTime">
+                </div>
+                <div class="flex" style="align-items: center; margin-top: 0.5rem;">
+                    <input type="checkbox" id="enableSchedule" style="width: auto; margin-right: 0.5rem;">
+                    <label for="enableSchedule" style="margin-bottom: 0;">Enable Schedule (Active between Start and End)</label>
+                </div>
+            </div>
+
+            <!-- Save -->
+            <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                <button id="saveBtn">Save Settings</button>
+            </div>
+            <p id="status" style="text-align: right; min-height: 1.2em; color: var(--success-color); margin-top: 0.5rem;"></p>
+        </div>
+    </div>
+    <script src="options.js"></script>
+</body>
+</html>
