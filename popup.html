@@ -28,6 +28,22 @@
     </div>
 
     <button id="openOptions" class="secondary" style="width: 100%;">Configuration</button>
+
+    <!-- Verification Modal -->
+    <div id="verificationModal" class="modal-overlay">
+        <div class="glass-panel modal-content">
+            <h3 style="margin-top: 0; color: var(--danger-color);">⚠️ Confirm Disable</h3>
+            <p style="margin-bottom: 0.5rem;">To disable protection, please type the following code:</p>
+            <div id="challengeCode" class="challenge-code"></div>
+            <input type="text" id="verifyInput" placeholder="Type the code above..." autocomplete="off">
+            <p id="verifyError" class="verify-error"></p>
+            <div class="modal-buttons">
+                <button id="cancelVerify" class="secondary">Cancel</button>
+                <button id="confirmVerify" class="danger-btn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
     <script src="popup.js"></script>
 </body>
 

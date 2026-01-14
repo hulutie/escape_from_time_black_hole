@@ -40,6 +40,7 @@ h1 {
     margin-bottom: 0.5rem;
     background: linear-gradient(to right, #38bdf8, #818cf8);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -186,4 +187,127 @@ body.popup-body {
     width: 300px;
     min-height: auto;
     padding: 1rem;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-content {
+    padding: 1.25rem;
+    max-width: 280px;
+    width: 100%;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Challenge Code Display */
+.challenge-code {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(168, 85, 247, 0.2));
+    border: 2px dashed var(--danger-color);
+    border-radius: 8px;
+    padding: 0.75rem;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: var(--text-primary);
+    margin: 0.75rem 0;
+    user-select: none;
+}
+
+/* Verification Error */
+.verify-error {
+    color: var(--danger-color);
+    font-size: 0.8rem;
+    min-height: 1.2em;
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+/* Modal Buttons */
+.modal-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.modal-buttons button {
+    flex: 1;
+}
+
+button.danger-btn {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+button.danger-btn:hover {
+    background-color: #dc2626;
+}
+
+button.danger-btn:disabled {
+    background-color: #6b7280;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Shake animation for wrong input */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
 }
