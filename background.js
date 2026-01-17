@@ -13,19 +13,34 @@ const DEFAULT_SETTINGS = {
 let settings = { ...DEFAULT_SETTINGS };
 let reenableAlarmName = 'autoReenable';
 
+// Restore badge on startup
+function restoreBadge() {
+    chrome.storage.local.get(['stats'], (result) => {
+        if (result.stats && result.stats.today && result.stats.lastDate === new Date().toDateString()) {
+            const action = chrome.action || chrome.browserAction;
+            if (action) {
+                action.setBadgeText({ text: result.stats.today.toString() });
+                action.setBadgeBackgroundColor({ color: '#FF4444' });
+            }
+        }
+    });
+}
+
 // Force enable protection on browser startup
 chrome.runtime.onStartup.addListener(() => {
-    console.log("TimeHole: Browser started, ensuring protection is enabled");
+    console.log("TimeHole: Browser started, ensuring protection is enabled. Ver: Stats-Debug-v2");
     chrome.storage.sync.set({ masterToggle: true });
     // Clear any pending re-enable timestamp since we just enabled
     chrome.storage.local.remove('reenableTime');
+    restoreBadge();
 });
 
 // Also force enable on extension install/update
 chrome.runtime.onInstalled.addListener(() => {
-    console.log("TimeHole: Extension installed/updated, ensuring protection is enabled");
+    console.log("TimeHole: Extension installed/updated, ensuring protection is enabled. Ver: Stats-Debug-v2");
     chrome.storage.sync.set({ masterToggle: true });
     chrome.storage.local.remove('reenableTime');
+    restoreBadge();
 });
 
 // Load settings on startup
@@ -172,8 +187,47 @@ async function handleNavigation(details) {
     // 4. Check Blacklist
     if (isBlacklisted(url)) {
         console.log(`TimeHole: Blocking ${url}`);
-        const redirectUrl = getSafeUrl();
-        chrome.tabs.update(details.tabId, { url: redirectUrl });
+
+        // Update statistics
+        console.log("TimeHole: Fetching stats for update...");
+        chrome.storage.local.get(['stats'], (result) => {
+            console.log("TimeHole: Retrieved stats:", result.stats);
+
+            let stats = result.stats || { total: 0, today: 0, lastDate: '', urls: {} };
+
+            // Check if we need to reset for a new day
+            const todayStr = new Date().toDateString();
+            if (stats.lastDate !== todayStr) {
+                stats.today = 0;
+                stats.urls = {}; // Reset detailed stats for the new day
+                stats.lastDate = todayStr;
+            }
+
+            stats.total = (stats.total || 0) + 1;
+            stats.today = (stats.today || 0) + 1;
+            stats.urls = stats.urls || {};
+            stats.urls[url] = (stats.urls[url] || 0) + 1;
+
+            // Update Badge Logic
+            const action = chrome.action || chrome.browserAction;
+            if (action) {
+                action.setBadgeText({ text: stats.today.toString() });
+                action.setBadgeBackgroundColor({ color: '#FF4444' }); // Alert Red
+            }
+
+            console.log("TimeHole: Saving new stats:", stats);
+            chrome.storage.local.set({ stats: stats }, () => {
+                console.log("TimeHole: Stats saved successfully. Executing redirect.");
+
+                // Redirect AFTER stats are saved to ensure no race conditions
+                const redirectUrl = getSafeUrl();
+                chrome.tabs.update(details.tabId, { url: redirectUrl });
+            });
+        });
+
+        // Return immediately to allow async processing, though standard "blocking" webRequest 
+        // allows blocking. But we are using chrome.webNavigation which doesn't support blocking.
+        // We are just updating the tab. The race condition suspicion is valid.
     }
 }
 

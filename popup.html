@@ -25,6 +25,16 @@
         </div>
     </div>
 
+    <!-- Statistics Panel -->
+    <div class="glass-panel" style="padding: 1rem; margin-bottom: 1rem; text-align: center;">
+        <div style="margin-bottom: 0.5rem; color: var(--text-secondary);" data-i18n="totalRedirects">Total Redirects
+        </div>
+        <div id="totalRedirectsCount" style="font-size: 1.5rem; font-weight: bold; color: var(--primary-color);">0</div>
+        <a href="#" id="viewDetailsBtn"
+            style="display: inline-block; margin-top: 0.5rem; color: var(--text-secondary); text-decoration: underline; font-size: 0.9rem;"
+            data-i18n="details">Details</a>
+    </div>
+
     <div class="flex" style="justify-content: space-between; margin-bottom: 1.5rem; padding: 0 0.5rem;">
         <span data-i18n="enableProtection">Enable Protection</span>
         <label class="switch">
@@ -48,6 +58,27 @@
             <div class="modal-buttons">
                 <button id="cancelVerify" class="secondary" data-i18n="cancel">Cancel</button>
                 <button id="confirmVerify" class="danger-btn" data-i18n="confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div id="statsModal" class="modal-overlay">
+        <div class="glass-panel modal-content"
+            style="max-height: 80vh; display: flex; flex-direction: column; width: 90%;">
+            <div class="modal-header"
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">
+                <h3 style="margin: 0;" data-i18n="redirectStats">Redirect Statistics</h3>
+                <span id="closeStats" style="cursor: pointer; font-size: 1.5rem; line-height: 1;">&times;</span>
+            </div>
+
+            <div id="statsList" class="stats-list" style="overflow-y: auto; flex: 1; text-align: left;">
+                <!-- Items will be injected here -->
+            </div>
+
+            <div class="modal-buttons" style="margin-top: 1rem; justify-content: space-between;">
+                <button id="clearStatsBtn" class="danger-btn" data-i18n="clearStats">Clear Records</button>
+                <button id="closeStatsBtn" class="secondary" data-i18n="close">Close</button>
             </div>
         </div>
     </div>

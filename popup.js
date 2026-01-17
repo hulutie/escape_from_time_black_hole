@@ -199,6 +199,129 @@ document.addEventListener('DOMContentLoaded', () => {
         chrome.runtime.openOptionsPage();
     });
 
+    // Stats Elements
+    const totalRedirectsCount = document.getElementById('totalRedirectsCount');
+    const viewDetailsBtn = document.getElementById('viewDetailsBtn');
+    const statsModal = document.getElementById('statsModal');
+    const statsList = document.getElementById('statsList');
+    const closeStatsX = document.getElementById('closeStats');
+    const closeStatsBtn = document.getElementById('closeStatsBtn');
+
+    // Update stats display
+    function updateStatsDisplay() {
+        chrome.storage.local.get(['stats'], (result) => {
+            const stats = result.stats || { total: 0 };
+            totalRedirectsCount.textContent = stats.total;
+        });
+    }
+
+    // Call on load
+    updateStatsDisplay();
+
+    // View Details Click
+    viewDetailsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showStatsModal();
+    });
+
+    // Show Stats Modal
+    function showStatsModal() {
+        chrome.storage.local.get(['stats'], (result) => {
+            const stats = result.stats || { total: 0, urls: {} };
+
+            // Clear list
+            statsList.innerHTML = '';
+
+            const urls = Object.entries(stats.urls);
+
+            if (urls.length === 0) {
+                const noData = document.createElement('div');
+                noData.className = 'no-stats';
+                noData.style.padding = '1rem';
+                noData.style.textAlign = 'center';
+                noData.style.color = 'var(--text-secondary)';
+                noData.textContent = window.i18n ? window.i18n('noStats') : 'No redirects yet.';
+                statsList.appendChild(noData);
+            } else {
+                // Sort by count descending
+                urls.sort((a, b) => b[1] - a[1]);
+
+                // Create table-like structure
+                const table = document.createElement('div');
+                table.style.display = 'flex';
+                table.style.flexDirection = 'column';
+                table.style.gap = '0.5rem';
+
+                urls.forEach(([url, count]) => {
+                    const row = document.createElement('div');
+                    row.style.display = 'flex';
+                    row.style.justifyContent = 'space-between';
+                    row.style.alignItems = 'center';
+                    row.style.padding = '0.5rem';
+                    row.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                    row.style.borderRadius = '4px';
+
+                    const urlEl = document.createElement('div');
+                    urlEl.style.flex = '1';
+                    urlEl.style.overflow = 'hidden';
+                    urlEl.style.textOverflow = 'ellipsis';
+                    urlEl.style.whiteSpace = 'nowrap';
+                    urlEl.style.marginRight = '1rem';
+                    urlEl.style.fontSize = '0.9rem';
+                    urlEl.title = url; // Tooltip
+                    urlEl.textContent = url;
+
+                    const countEl = document.createElement('div');
+                    countEl.style.fontWeight = 'bold';
+                    countEl.style.color = 'var(--primary-color)';
+                    countEl.textContent = count;
+
+                    row.appendChild(urlEl);
+                    row.appendChild(countEl);
+                    table.appendChild(row);
+                });
+
+                statsList.appendChild(table);
+            }
+
+            statsModal.classList.add('show');
+        });
+    }
+
+    // Hide Stats Modal
+    function hideStatsModal() {
+        statsModal.classList.remove('show');
+    }
+
+    closeStatsX.addEventListener('click', hideStatsModal);
+    closeStatsBtn.addEventListener('click', hideStatsModal);
+
+    // Clear Stats
+    const clearStatsBtn = document.getElementById('clearStatsBtn');
+    clearStatsBtn.addEventListener('click', () => {
+        chrome.storage.local.get(['stats'], (result) => {
+            const stats = result.stats || {};
+
+            // Reset daily stats
+            stats.today = 0;
+            stats.urls = {};
+            // We keep stats.total as is (lifetime count)
+            // Or should we? "Clear records to give stats a chance".
+            // Since the badge is today's count, clearing today is enough.
+
+            chrome.storage.local.set({ stats: stats }, () => {
+                // Update UI
+                showStatsModal(); // Refresh the list (will show empty)
+
+                // Clear badge
+                const action = chrome.action || chrome.browserAction;
+                if (action) {
+                    action.setBadgeText({ text: '' });
+                }
+            });
+        });
+    });
+
     function updateUI(isActive) {
         toggle.checked = isActive;
         const activeText = window.i18n ? window.i18n('statusActive') : 'Active';

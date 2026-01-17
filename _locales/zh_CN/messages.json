@@ -154,5 +154,37 @@
     "incorrectCode": {
         "message": "验证码错误，请重试。",
         "description": "验证码错误消息"
+    },
+    "totalRedirects": {
+        "message": "总拦截次数",
+        "description": "总拦截次数标签"
+    },
+    "details": {
+        "message": "详情",
+        "description": "查看详情按钮"
+    },
+    "redirectStats": {
+        "message": "今日拦截统计",
+        "description": "统计弹窗标题"
+    },
+    "url": {
+        "message": "网址",
+        "description": "网址列标题"
+    },
+    "count": {
+        "message": "次数",
+        "description": "次数列标题"
+    },
+    "close": {
+        "message": "关闭",
+        "description": "关闭弹窗按钮"
+    },
+    "noStats": {
+        "message": "暂无拦截记录。",
+        "description": "暂无数据时的提示"
+    },
+    "clearStats": {
+        "message": "清除记录",
+        "description": "清除统计按钮"
     }
 }

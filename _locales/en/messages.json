@@ -154,5 +154,37 @@
     "incorrectCode": {
         "message": "Incorrect code. Please try again.",
         "description": "Incorrect verification code message"
+    },
+    "totalRedirects": {
+        "message": "Total Redirects",
+        "description": "Label for the total number of redirects"
+    },
+    "details": {
+        "message": "Details",
+        "description": "Button to view detailed statistics"
+    },
+    "redirectStats": {
+        "message": "Today's Statistics",
+        "description": "Title for the statistics modal"
+    },
+    "url": {
+        "message": "URL",
+        "description": "Column header for URL"
+    },
+    "count": {
+        "message": "Count",
+        "description": "Column header for count"
+    },
+    "close": {
+        "message": "Close",
+        "description": "Button to close the modal"
+    },
+    "noStats": {
+        "message": "No redirects yet.",
+        "description": "Message shown when there are no statistics"
+    },
+    "clearStats": {
+        "message": "Clear Records",
+        "description": "Button to clear statistics"
     }
 }
