@@ -12,7 +12,7 @@ Last Updated: January 14, 2026
 ## 2. Permissions Usage
 To provide its core functionality, the Extension requires the following permissions:
 - **`storage`**: Used to save and retrieve your custom blacklist, whitelist, and schedule settings locally on your machine.
-- **`tabs` & `webNavigation`**: Used to identify when you navigate to a URL that matches your defined blacklist so that the extension can perform the redirection.
+- **`webNavigation`**: Used to identify when you navigate to a URL that matches your defined blacklist so that the extension can perform the redirection.
 - **`<all_urls>` (Host Permission)**: Necessary to detect matches against your custom blacklist across different domains. The extension only acts on URLs you explicitly provide in your settings.
 - **`alarms`**: Used to handle the "Auto Re-enable" timer and schedule features.
 
@@ -44,7 +44,7 @@ If you have any questions about this Privacy Policy, please contact the develope
 ## 2. 权限使用说明
 为了实现核心功能，本插件需要以下权限：
 - **`storage`**：用于在您的本地机器上保存和读取自定义的黑白名单及时间表设置。
-- **`tabs` & `webNavigation`**：用于识别您是否导航到了符合黑名单定义的 URL，以便执行重定向。
+- **`webNavigation`**：用于识别您是否导航到了符合黑名单定义的 URL，以便执行重定向。
 - **`<all_urls>` (主机权限)**：用于在不同域名下检测黑名单匹配情况。本插件仅会对您在设置中明确提供的 URL 做出反应。
 - **`alarms`**：用于处理“自动恢复”计时器和计划任务功能。
 
